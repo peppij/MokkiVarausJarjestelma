@@ -1,6 +1,6 @@
 Mökkien hallinta 
 
-Järjestelmän käyttöliittymässä käyttäjä voi hallita mökkitietoja kattavasti. Toiminnallisuuksiin kuuluu uusien mökkien lisääminen, olemassa olevien tietojen tarkastelu, muokkaus sekä poistaminen. Jokaisesta mökistä tallennetaan olennaiset tiedot, kuten nimi, pinta-ala, lisätiedot ja sen ajankohtainen varaustilanne. Näin varmistetaan, että varausten tiedot pysyvät ajan tasalla ja muokattavissa reaaliaikaisesti.
+Järjestelmän käyttöliittymässä käyttäjä voi hallita mökkitietoja kattavasti. Toiminnallisuuksiin kuuluu olemassa olevien mökkien tietojen tarkastelu, muokkaus sekä poistaminen. Jokaisesta mökistä tallennetaan olennaiset tiedot, kuten nimi, pinta-ala, lisätiedot ja sen ajankohtainen varaustilanne. Näin varmistetaan, että varausten tiedot pysyvät ajan tasalla ja muokattavissa reaaliaikaisesti.
 
 ---------------------------------------------
 Varausten hallinta 

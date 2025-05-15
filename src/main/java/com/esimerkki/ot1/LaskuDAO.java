@@ -44,14 +44,12 @@ public class LaskuDAO {
             String sql = "UPDATE lasku SET summa=?, onko_maksettu=?, lisatiedot=?, laskun_asiakas=? WHERE laskunumero=?";
             PreparedStatement stmt = conn.prepareStatement(sql);
 
-            // Asetetaan tyhjennetyt tiedot tietokannan päivitykseen
-            stmt.setDouble(1, lasku.getMaara());  // Määrä (nolla)
-            stmt.setBoolean(2, lasku.getOnkoMaksettu());  // Maksettu (false)
-            stmt.setString(3, lasku.getLisaTiedot());  // Lisätiedot (tyhjä)
-            stmt.setString(4, lasku.getLaskunAsiakas());  // Asiakas ("Ei tietoja")
-            stmt.setInt(5, lasku.getLaskuNumero());  // Laskunumero (0)
+            stmt.setDouble(1, lasku.getMaara());
+            stmt.setBoolean(2, lasku.getOnkoMaksettu());
+            stmt.setString(3, lasku.getLisaTiedot());
+            stmt.setString(4, lasku.getLaskunAsiakas());
+            stmt.setInt(5, lasku.getLaskuNumero());
 
-            // Suoritetaan SQL-kysely
             int rowsAffected = stmt.executeUpdate();
             stmt.close();
 

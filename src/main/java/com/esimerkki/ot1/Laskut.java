@@ -7,6 +7,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -25,7 +26,6 @@ public class Laskut extends Application implements Serializable {
     private String laskunAsiakas;
     public static Laskut[] tilit = new Laskut[10];
     public static Laskut valittu;
-
 
     public static void lataaTiedotTietokannasta() {
         List<Laskut> lista = LaskuDAO.haeKaikkiLaskut();
@@ -133,23 +133,33 @@ public class Laskut extends Application implements Serializable {
 
         paivittaja(ylin, keskimmainen, keskimmaisempi, alempi, alin);
 
-        ObservableList<String> vaihtoehdot = FXCollections.observableArrayList();
+        ObservableList<Laskut> vaihtoehdot = FXCollections.observableArrayList();
         for (Laskut l : tilit) {
             if (l != null) {
-                vaihtoehdot.add(l.getLaskunAsiakas());
+                vaihtoehdot.add(l);
             }
         }
 
-        ListView<String> nakuma = new ListView<>(vaihtoehdot);
+        ListView<Laskut> nakuma = new ListView<>(vaihtoehdot);
         nakuma.setPrefWidth(150);
 
-        nakuma.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            for (Laskut mokki : tilit) {
-                if (mokki != null && mokki.getLaskunAsiakas().equals(newValue)) {
-                    valittu = mokki;
+        nakuma.setCellFactory(lv -> new ListCell<>() {
+            @Override
+            protected void updateItem(Laskut item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getLaskuNumero() + " - " + item.getLaskunAsiakas());
                 }
             }
-            paivittaja(ylin, keskimmainen, keskimmaisempi, alempi, alin);
+        });
+
+        nakuma.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                valittu = newVal;
+                paivittaja(ylin, keskimmainen, keskimmaisempi, alempi, alin);
+            }
         });
 
         poista.setOnAction(actionEvent -> {
@@ -158,11 +168,10 @@ public class Laskut extends Application implements Serializable {
                 valittu.tyhjenna();
                 laskuDAO.paivitaLasku(valittu);
 
-                // Päivitä lista käyttöliittymässä
                 vaihtoehdot.clear();
                 for (Laskut l : tilit) {
                     if (l != null) {
-                        vaihtoehdot.add(l.getLaskunAsiakas());
+                        vaihtoehdot.add(l);
                     }
                 }
 

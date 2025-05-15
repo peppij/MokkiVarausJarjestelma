@@ -44,14 +44,12 @@ public class AsiakasTiedotDAO {
             String sql = "UPDATE asiakas SET puhelinnumero=?, yritysasiakas=?, sahkoposti=?, asiakasnimi=? WHERE asiakasnumero=?";
             PreparedStatement stmt = conn.prepareStatement(sql);
 
-            // Asetetaan tyhjennetyt tiedot tietokannan päivitykseen
             stmt.setString(1, asiakas.getPuhelinnumero());
             stmt.setBoolean(2, asiakas.getYritysAsiakas());
             stmt.setString(3, asiakas.getSahkoposti());
             stmt.setString(4, asiakas.getAsiakkaanNimi());
             stmt.setInt(5, asiakas.getAsiakasNumero());
 
-            // Suoritetaan SQL-kysely
             int rowsAffected = stmt.executeUpdate();
             stmt.close();
 

@@ -7,6 +7,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -132,23 +133,33 @@ public class AsiakasTiedot extends Application implements Serializable {
 
         paivittaja(ylin, keskimmainen, keskimmaisempi, alempi, alin);
 
-        ObservableList<String> vaihtoehdot = FXCollections.observableArrayList();
+        ObservableList<AsiakasTiedot> vaihtoehdot = FXCollections.observableArrayList();
         for (AsiakasTiedot l : tilit) {
             if (l != null) {
-                vaihtoehdot.add(l.getAsiakkaanNimi());
+                vaihtoehdot.add(l);
             }
         }
 
-        ListView<String> nakuma = new ListView<>(vaihtoehdot);
+        ListView<AsiakasTiedot> nakuma = new ListView<>(vaihtoehdot);
         nakuma.setPrefWidth(150);
 
-        nakuma.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            for (AsiakasTiedot asiakas : tilit) {
-                if (asiakas != null && asiakas.getAsiakkaanNimi().equals(newValue)) {
-                    valittu = asiakas;
+        nakuma.setCellFactory(lv -> new ListCell<>() {
+            @Override
+            protected void updateItem(AsiakasTiedot item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getAsiakasNumero() + " - " + item.getAsiakkaanNimi());
                 }
             }
-            paivittaja(ylin, keskimmainen, keskimmaisempi, alempi, alin);
+        });
+
+        nakuma.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                valittu = newVal;
+                paivittaja(ylin, keskimmainen, keskimmaisempi, alempi, alin);
+            }
         });
 
         poista.setOnAction(actionEvent -> {
@@ -160,7 +171,7 @@ public class AsiakasTiedot extends Application implements Serializable {
               vaihtoehdot.clear();
               for (AsiakasTiedot l : tilit) {
                   if (l != null) {
-                      vaihtoehdot.add(l.getAsiakkaanNimi());
+                      vaihtoehdot.add(l);
                   }
               }
               paivittaja(ylin, keskimmainen, keskimmaisempi, alempi, alin);

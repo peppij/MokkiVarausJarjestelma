@@ -100,8 +100,8 @@ public class AsiakasMuokkaus extends Application {
                 paivitysCallback.run();
             }
 
-            AsiakasTiedot praytogod = new AsiakasTiedot();
-            praytogod.start(new Stage());
+            AsiakasTiedot asiakas = new AsiakasTiedot();
+            asiakas.start(new Stage());
 
             primaryStage.close();
         });

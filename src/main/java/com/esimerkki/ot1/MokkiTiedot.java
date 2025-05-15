@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -31,6 +32,7 @@ public class MokkiTiedot extends Application implements Serializable {
 
         for (int i = 0; i < lista.size() && i < 10; i++) {
             tilit[i] = lista.get(i);
+            System.out.println(tilit[i].getMokinNumero());
         }
 
         if (tilit[0] != null) {
@@ -102,7 +104,7 @@ public class MokkiTiedot extends Application implements Serializable {
 
     public void paivittaja(Text ylin, Text keskimmainen, Text keskimmaisempi, Text alempi) {
         if (valittu != null) {
-            ylin.setText("Mökin " + valittu.getMokinNimi() + " tiedot:");
+            ylin.setText("Mökin " + valittu.getMokinNimi() + " tiedot:" + valittu.getMokinNumero());
             keskimmainen.setText("Onko varattu: " + valittu.getOnkoVarattu());
             keskimmaisempi.setText("Pinta-ala: " + valittu.getPintaAla());
             alempi.setText("Lisäominaisuudet: " + valittu.getLisaominaisuudet());
@@ -129,23 +131,33 @@ public class MokkiTiedot extends Application implements Serializable {
 
         paivittaja(ylin, keskimmainen, keskimmaisempi, alempi);
 
-        ObservableList<String> vaihtoehdot = FXCollections.observableArrayList();
+        ObservableList<MokkiTiedot> vaihtoehdot = FXCollections.observableArrayList();
         for (MokkiTiedot l : tilit) {
             if (l != null) {
-                vaihtoehdot.add(l.getMokinNimi());
+                vaihtoehdot.add(l);
             }
         }
 
-        ListView<String> nakuma = new ListView<>(vaihtoehdot);
+        ListView<MokkiTiedot> nakuma = new ListView<>(vaihtoehdot);
         nakuma.setPrefWidth(150);
 
-        nakuma.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            for (MokkiTiedot mokki : tilit) {
-                if (mokki != null && mokki.getMokinNimi().equals(newValue)) {
-                    valittu = mokki;
+        nakuma.setCellFactory(lv -> new ListCell<>() {
+            @Override
+            protected void updateItem(MokkiTiedot item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getMokinNumero() + " - " + item.getMokinNimi());
                 }
             }
-            paivittaja(ylin, keskimmainen, keskimmaisempi, alempi);
+        });
+
+        nakuma.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                valittu = newVal;
+                paivittaja(ylin, keskimmainen, keskimmaisempi, alempi);
+            }
         });
 
         poista.setOnAction(actionEvent -> {
@@ -154,11 +166,10 @@ public class MokkiTiedot extends Application implements Serializable {
                 valittu.tyhjenna();
                 MokkiTiedotDAO.paivitaMokit(valittu);
 
-                // Päivitä lista käyttöliittymässä
                 vaihtoehdot.clear();
                 for (MokkiTiedot l : tilit) {
                     if (l != null) {
-                        vaihtoehdot.add(l.getMokinNimi());
+                        vaihtoehdot.add(l);
                     }
                 }
 
@@ -218,9 +229,9 @@ public class MokkiTiedot extends Application implements Serializable {
     }
 
     void tyhjenna() {
-        valittu.setMokinNimi("Ei tietoja");
-        valittu.setLisaominaisuudet("");
-        valittu.setOnkoVarattu(false);
-        valittu.setPintaAla(0);
+        this.setMokinNimi("Ei tietoja");
+        this.setLisaominaisuudet("");
+        this.setOnkoVarattu(false);
+        this.setPintaAla(0);
     }
 }

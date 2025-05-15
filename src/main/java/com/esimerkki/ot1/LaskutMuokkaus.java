@@ -14,7 +14,7 @@ public class LaskutMuokkaus extends Application {
     private CheckBox onkoMaksettu = new CheckBox();
     private Button tallenna = new Button("Tallenna");
 
-    private Runnable paivitysCallback; // Tätä kutsutaan tallennuksen jälkeen
+    private Runnable paivitysCallback;
 
     public LaskutMuokkaus() {}
 
@@ -96,8 +96,8 @@ public class LaskutMuokkaus extends Application {
             if (paivitysCallback != null) {
                 paivitysCallback.run();
             }
-            Laskut praytogod = new Laskut();
-            praytogod.start(new Stage());
+            Laskut lasku = new Laskut();
+            lasku.start(new Stage());
 
             primaryStage.close();
         });

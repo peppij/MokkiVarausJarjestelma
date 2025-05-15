@@ -44,14 +44,12 @@ public class MokkiTiedotDAO {
             String sql = "UPDATE mokit SET pinta_ala=?, onko_varattu=?, lisaominaisuudet=?, mokin_nimi=? WHERE mokin_numero=?";
             PreparedStatement stmt = conn.prepareStatement(sql);
 
-            // Asetetaan tyhjennetyt tiedot tietokannan päivitykseen
-            stmt.setDouble(1, mokit.getPintaAla());  // Määrä (nolla)
-            stmt.setBoolean(2, mokit.getOnkoVarattu());  // Maksettu (false)
-            stmt.setString(3, mokit.getLisaominaisuudet());  // Lisätiedot (tyhjä)
-            stmt.setString(4, mokit.getMokinNimi());  // Asiakas ("Ei tietoja")
-            stmt.setInt(5, mokit.getMokinNumero());  // Laskunumero (0)
+            stmt.setDouble(1, mokit.getPintaAla());
+            stmt.setBoolean(2, mokit.getOnkoVarattu());
+            stmt.setString(3, mokit.getLisaominaisuudet());
+            stmt.setString(4, mokit.getMokinNimi());
+            stmt.setInt(5, mokit.getMokinNumero());
 
-            // Suoritetaan SQL-kysely
             int rowsAffected = stmt.executeUpdate();
             stmt.close();
 

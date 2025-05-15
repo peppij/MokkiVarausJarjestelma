@@ -79,7 +79,6 @@ public class MokkiMuokkaus extends Application {
         muokkaaAla.setAlignment(Pos.BOTTOM_RIGHT);
         muokkaalisaominaisuudet.setAlignment(Pos.BOTTOM_RIGHT);
 
-
         tallenna.setOnAction(e -> {
             double pintaAla = Double.parseDouble(muokkaaAla.getText());
             String lisa = muokkaalisaominaisuudet.getText();
@@ -97,8 +96,8 @@ public class MokkiMuokkaus extends Application {
             if (paivitysCallback != null) {
                 paivitysCallback.run();
             }
-            MokkiTiedot praytogod = new MokkiTiedot();
-            praytogod.start(new Stage());
+            MokkiTiedot mokki = new MokkiTiedot();
+            mokki.start(new Stage());
 
             primaryStage.close();
         });

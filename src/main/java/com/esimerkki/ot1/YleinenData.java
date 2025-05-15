@@ -1,6 +1,5 @@
 package com.esimerkki.ot1;
 
-
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

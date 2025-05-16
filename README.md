@@ -1,30 +1,14 @@
-Mökkien hallinta 
-
-Järjestelmän käyttöliittymässä käyttäjä voi hallita mökkitietoja kattavasti. Toiminnallisuuksiin kuuluu olemassa olevien mökkien tietojen tarkastelu, muokkaus sekä poistaminen. Jokaisesta mökistä tallennetaan olennaiset tiedot, kuten nimi, pinta-ala, lisätiedot ja sen ajankohtainen varaustilanne. Näin varmistetaan, että varausten tiedot pysyvät ajan tasalla ja muokattavissa reaaliaikaisesti.
-
----------------------------------------------
-Varausten hallinta 
-
-Kun varaus halutaan kirjata, käyttäjä voi syöttää tarvittavat tiedot, kuten varattavan mökin sekä asiakastiedot järjestelmään. Varaus on muokattavissa jälkikäteen, ja käyttäjä voi tarvittaessa muokata tai poistaa varauksen. Kaikki nämä toiminnot päivittyvät SQL-tietokantaan reaaliaikaisesti.
-
----------------------------------------------
-Asiakashallinta 
-
-Järjestelmässä on erillinen asiakasvälilehti, jonka avulla voidaan muokata ja poistaa asiakkaiden tietoja. Asiakastietoja ovat esimerkiksi nimi, puhelinnumero, sähköposti sekä asiakastyyppi (yksityinen tai yritys). Tiedot ovat yhteydessä SQL-tietokantaan.
-
----------------------------------------------
-Laskujen hallinta 
-
-Laskuja pystyy seuraamaan laskut ikkunasta, jonka tiedoissa näkyvät yksilöllinen laskunumero, laskun summa, maksuntila ja lisätiedot. Tiedot ovat yhteydessä SQL-tietokantaan.
-
----------------------------------------------
-Yleinen data
-
-Järjestelmä päivittää reaaliaikaisesti tietoja vapaista ja varatuista mökeistä.
-
----------------------------------------------
-Tekninen toteutus
-
-Järjestelmän graafinen käyttöliittymä on toteutettu JavaFX:llä, joka tarjoaa intuitiivisen ja interaktiivisen käyttöympäristön. Taustalla toimiva SQL-tietokanta huolehtii tietojen tallennuksesta ja mahdollisuuden tietojen hallintaan.
-
-Järjestelmä integroi saumattomasti useita toimintoja, joita ovat yllämainitut mökkien, varausten, laskujen ja yleisen datan hallinta. Reaaliaikaiset päivitykset SQL-tietokantaan takaavat, että kaikki käyttäjän tekemät muutokset näkyvät välittömästi. Tämä modulaarinen rakenne varmistaa, että järjestelmä pystyy vastaamaan Mökkikodit Oy:n tarpeisiin ja tukee tehokkaasti liiketoiminnan keskeisiä prosesseja.
+1. Lataa ja asenna IntelliJ: https://www.jetbrains.com/idea/
+2. Lataa ja asenna MySQL: https://dev.mysql.com/downloads/installer/
+3. Lataa ja asenna ajuri: https://dev.mysql.com/downloads/connector/j/ 
+4. Luo projektikansio IntelliJ:ssä 
+5. Lisää branchissä olevat java tiedostot IntelliJ:hin 
+6. Lisää kuva tiedosto resources kansioon IntelliJ:ssä
+7. Lisää MySQL SQL komennot tiedoston tiedot queryyn ja suorita query
+8. Käynnistä järjestelmä IntelliJ:ssä AloitusRuutu kohdasta
+9. Aloitusruudusta pääset eteenpäin järjestelmässä painamalla haluamaasi nappia, kuten Mökit, joka vie olemassa olevien mökkien listaukseen
+10. Mökit näkymässä valitse haluamasi mökki ja sitten tee haluamasi toiminto (muokkaa tai poista)
+11. Muokkaa näkymässä aseta mökille nimi, pinta-ala, lisäominaisuudet ja varaustilanne ja sitten tallenna tiedot
+12. Laskut ja Asiakkaat näkymät toimivat samalla logiikalla kuin Mökit
+13. Yleinen data ikkunasta näet mökkien reaaliaikaisen varautilanteen
+14. Kirjaudu ulos nappia painamalla pääset ulos järjestelmästä

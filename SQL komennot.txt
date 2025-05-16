@@ -1,0 +1,46 @@
+CREATE SCHEMA mokkijarjestelma;
+
+CREATE USER 'devuser'@'localhost' IDENTIFIED BY '';
+
+GRANT ALL PRIVILEGES ON mokkijarjestelma.* TO 'devuser'@'localhost';
+
+FLUSH PRIVILEGES;
+
+DROP TABLE IF EXISTS `asiakas`;
+CREATE TABLE `asiakas` (
+  `asiakasnumero` int NOT NULL,
+  `puhelinnumero` varchar(100) NOT NULL,
+  `yritysasiakas` tinyint NOT NULL,
+  `sahkoposti` varchar(100) NOT NULL,
+  `asiakasnimi` varchar(100) NOT NULL,
+  PRIMARY KEY (`asiakasnumero`,`puhelinnumero`,`yritysasiakas`,`sahkoposti`,`asiakasnimi`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+LOCK TABLES `asiakas` WRITE;
+INSERT INTO `asiakas` VALUES (1,'050 51298234',1,'marjatta@outlook.com','Marjatta'),(2,'045 55563278',0,'bebsi@cocacolacompany.fi','Bebsi'),(3,'6969696969',1,'esaaja@gmail.com','Esa'),(4,'112',0,'mokki@varausjarjestelmat.fi','Pena'),(5,'0441234567',0,'mokki@varausjarjestelmat.fi','Sari'),(6,'044295687',0,'Jakkonen.Joni@hotmail.com','Jaana'),(7,'0441234567',0,'mokki@varausjarjestelmat.fi','Marja'),(8,'0',0,'','Ei tietoja'),(9,'0441234567',0,'mokki@varausjarjestelmat.fi','Tiina'),(10,'050 5555 000',0,'niilo22@outlook.com','Niilo');
+UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `lasku`;
+CREATE TABLE `lasku` (
+  `laskunumero` int NOT NULL,
+  `summa` double DEFAULT NULL,
+  `onko_maksettu` tinyint DEFAULT NULL,
+  `lisatiedot` mediumtext,
+  `laskun_asiakas` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`laskunumero`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+LOCK TABLES `lasku` WRITE;
+INSERT INTO `lasku` VALUES (1,100,1,'-','Marjatta'),(2,300,0,'Asiakkaalla maksusopimus','Bebsi'),(3,150,0,'Maksaa osamaksulla','Esa'),(4,2000,1,'-','Pena'),(5,400,1,'Asiakas on köyhä','Sari'),(6,200,0,'Firman piikkiin?','Joni'),(7,800,0,'Asiakkaalla maksusopimus','Marja'),(8,0,0,'','Ei tietoja'),(9,100,1,'-','Tiina'),(10,22,1,'Julkkis alennus','Niilo');
+UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `mokit`;
+CREATE TABLE `mokit` (
+  `mokin_numero` int NOT NULL,
+  `mokin_nimi` varchar(100) DEFAULT NULL,
+  `pinta_ala` double DEFAULT NULL,
+  `onko_varattu` tinyint(1) DEFAULT NULL,
+  `lisaominaisuudet` text,
+  PRIMARY KEY (`mokin_numero`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+LOCK TABLES `mokit` WRITE;
+INSERT INTO `mokit` VALUES (1,'Rantapoukama',45,0,'Wheelchair accessible'),(2,'Sädekehä',85,1,'Kahvinkeitin, ilmastointi'),(3,'Tähtilampi',45,1,'Wheelchair accessible'),(4,'Unelma',23.5,0,'Tuulikaappi'),(5,'Ei tietoja',0,0,''),(6,'KarhunpesäInen',45,0,'Hyvät sängyt'),(7,'Ei tietoja',0,0,''),(8,'Serveriluola',5,1,'servereitä'),(9,'Muusikko',67,1,'ilmapatjat'),(10,'Mökkikakkonen',100,1,'Pitkät portaat');
+UNLOCK TABLES;
